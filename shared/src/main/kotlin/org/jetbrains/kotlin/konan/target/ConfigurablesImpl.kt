@@ -37,7 +37,7 @@ class WasmConfigurablesImpl(target: KonanTarget, properties: Properties, baseDir
     : WasmConfigurables, KonanPropertiesLoader(target, properties, baseDir)
 
 
-internal fun loadConfigurables(target: KonanTarget, properties: Properties, baseDir: String?) = when (target)  {
+fun loadConfigurables(target: KonanTarget, properties: Properties, baseDir: String?) = when (target)  {
         KonanTarget.LINUX, KonanTarget.RASPBERRYPI ->
             LinuxConfigurablesImpl(target, properties, baseDir)
         KonanTarget.LINUX_MIPS32, KonanTarget.LINUX_MIPSEL32 ->
