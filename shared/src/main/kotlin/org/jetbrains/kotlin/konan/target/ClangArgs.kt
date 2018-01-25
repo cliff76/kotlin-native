@@ -130,8 +130,8 @@ class ClangArgs(private val configurables: Configurables) : Configurables by con
     }
 
     private val extraHostClangArgs = 
-        if (host == KonanTarget.LINUX) {
-            listOf("--gcc-toolchain=${absoluteGccToolchain}")
+        if (configurables is LinuxBasedConfigurables) {
+            listOf("--gcc-toolchain=${configurables.absoluteGccToolchain}")
         } else {
             emptyList()
         }

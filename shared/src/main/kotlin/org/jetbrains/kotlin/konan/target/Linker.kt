@@ -162,8 +162,8 @@ open class MacOSBasedLinker(targetProperties: AppleConfigurables)
             listOf(dsymutil, "-dump-debug-map" ,executable)
 }
 
-open class LinuxBasedLinker(targetProperties: LinuxConfigurables)
-    : LinkerFlags(targetProperties), LinuxConfigurables by targetProperties {
+open class LinuxBasedLinker(targetProperties: LinuxBasedConfigurables)
+    : LinkerFlags(targetProperties), LinuxBasedConfigurables by targetProperties {
 
     override val libGcc: String = "$absoluteTargetSysRoot/${super.libGcc}"
     private val linker = "$absoluteTargetToolchain/bin/ld.gold"

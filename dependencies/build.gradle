@@ -210,7 +210,7 @@ class HelperNativeDep extends TgzNativeDep {
 
 enum DependencyKind {
     LLVM(            "llvm",            { it.llvmHome },       { "llvmDir" }        ),
-    GCC_TOOLCHAIN(   "gccToolchain",    { it.gccToolchain },   { "gccToolchainDir" }),
+    GCC_TOOLCHAIN(   "gccToolchain",    { it instanceof LinuxBasedConfigurables ? it.gccToolchain : null },   { "gccToolchainDir" }),
     SYSROOT(         "sysroot",         { it.targetSysRoot }                        ),
     LIBFFI(          "libffi",          { it.libffiDir }                            ),
     TARGET_TOOLCHAIN("targetToolchain", { it.targetToolchain }                      )

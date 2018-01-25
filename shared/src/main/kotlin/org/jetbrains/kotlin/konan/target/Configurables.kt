@@ -38,16 +38,12 @@ interface Configurables : TargetableExternalStorage {
     val llvmDebugOptFlags get() = targetList("llvmDebugOptFlags")
     val targetSysRoot get() = targetString("targetSysRoot")
     val libffiDir get() = targetString("libffiDir")
-    // TODO: This one should belong to LinuxConfigurables,
-    // but as of now that would break the dependency downloader.
-    val gccToolchain get() = hostString("gccToolchain")
 
     // Notice: these ones are host-target.
     val targetToolchain get() = hostTargetString("targetToolchain")
 
     val absoluteTargetSysRoot get() = absolute(targetSysRoot)
     val absoluteTargetToolchain get() = absolute(targetToolchain)
-    val absoluteGccToolchain get() = absolute(gccToolchain)
     val absoluteLlvmHome get() = absolute(llvmHome)
     val absoluteLibffiDir get() = absolute(libffiDir)
 }
@@ -64,16 +60,20 @@ interface AppleConfigurables : Configurables {
 
 interface MingwConfigurables : NonAppleConfigurables
 
-interface LinuxConfigurables : NonAppleConfigurables {
+interface LinuxBasedConfigurables : NonAppleConfigurables {
+    val gccToolchain get() = hostString("gccToolchain")
+    val absoluteGccToolchain get() = absolute(gccToolchain)
+
     val libGcc get() = targetString("libGcc")!!
     val dynamicLinker get() = targetString("dynamicLinker")!!
     val pluginOptimizationFlags get() = targetList("pluginOptimizationFlags")
     val abiSpecificLibraries get() = targetList("abiSpecificLibraries")
 }
 
-interface LinuxMIPSConfigurables : LinuxConfigurables
-interface RaspberryPiConfigurables : LinuxConfigurables
-interface AndroidConfigurables : LinuxConfigurables
+interface LinuxConfigurables : LinuxBasedConfigurables
+interface LinuxMIPSConfigurables : LinuxBasedConfigurables
+interface RaspberryPiConfigurables : LinuxBasedConfigurables
+interface AndroidConfigurables : NonAppleConfigurables
 
 interface WasmConfigurables : NonAppleConfigurables {
     val s2wasmFlags get() = targetList("s2wasmFlags")
